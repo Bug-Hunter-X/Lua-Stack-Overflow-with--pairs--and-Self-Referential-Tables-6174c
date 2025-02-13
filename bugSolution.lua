@@ -1,0 +1,13 @@
+local function foo(t, visited)
+  visited = visited or {}
+  for k, v in pairs(t) do
+    if type(v) == "table" and not visited[v] then
+      visited[v] = true
+      foo(v, visited)
+    end
+  end
+end
+
+local t = {a = 1, b = {c = 2, d = {e = 3}}}
+t.b.d = t  -- Create a self-referential structure
+foo(t) 
